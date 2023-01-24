@@ -75,7 +75,9 @@ export async function updateContentController(req: Request, res: Response) {
     const id = Number(req.params.id);
    try {
     
-    await contentService.updateContentService(id, content);
+    const updatedContent = await contentService.updateContentService(id, content);
+
+    if(updatedContent) res.sendStatus(200);
 
    } catch (error) {
     res.status(500).send(error.message);
@@ -88,8 +90,10 @@ export async function deleteContent(req: Request, res: Response) {
 
     try {
 
-        await contentService.deleteContent(id);
+        const deletedContent = await contentService.deleteContent(id);
 
+        if(deletedContent) res.sendStatus(200);
+        
     } catch (error) {
         res.status(500).send(error.message);
     }

@@ -8,7 +8,11 @@ export default function updateContentMiddleware(req: Request, res: Response, nex
 
     const { error } = updateContentSchema.validate(content, { abortEarly: false});
 
-    if(error) return res.status(400).send(error.details.map(e => e.message));
+    if(error) {
+
+        const errors = error.details.map(e => e.message);
+        return res.status(400).send(errors);
+    }
 
     next();
 }
