@@ -1,0 +1,42 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Content {
+  id            Int      @id @default(autoincrement())
+  link          String   @unique @db.VarChar
+  type          Type     @relation(fields: [typeId], references: [id])
+  status        String   @default("tosee") @db.VarChar(20)
+  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime @default(now()) @db.Timestamp(6)
+  comment       String?
+  title         String   @db.VarChar
+  typeId        Int
+
+  Label         Label[]
+
+  @@map("contents")
+}
+
+model Type {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique @db.VarChar(20)
+
+  Content       Content[]
+  @@map("types")
+}
+
+model Label {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique @db.VarChar(20)
+
+  Content       Content[]
+  @@map("labels")
+}

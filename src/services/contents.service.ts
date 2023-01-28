@@ -1,43 +1,40 @@
-import { contentRepository } from "../repositories/content.repository.js";
+import { contentRepository } from "../repositories/contents.repository.js";
 import { Content, createContent, updateContent } from "../utils/protocols";
 
 
-async function saveContent(content: createContent):Promise<any> {
+async function saveContent(content: createContent):Promise<Content> {
 
-    const createdAt = new Date();
-    return await contentRepository.saveContent(content, createdAt);
+    return await contentRepository.saveContent(content);
 }
 
 
 async function getOne(id: number): Promise<Content> {
    
-    return (await contentRepository.getOne(id)).rows[0];
+    return await contentRepository.getOne(id);
 }
 
 
 async function getAll():Promise<Content[]>{
 
-    return (await contentRepository.getAll()).rows;
+    return await contentRepository.getAll();
 }
 
 
 async function getContentsByStatus(status: string):Promise<Content[]> {
     
-    return (await contentRepository.getContentsByStatus(status)).rows;
+    return await contentRepository.getContentsByStatus(status);
 }
 
 
 async function updateContentService(id: number , content: updateContent): Promise<any>{
-    
-    const updatedAt = new Date();
 
-    return (await contentRepository.updateContentBD(id, content, updatedAt)).rowCount;
+    return await contentRepository.updateContentBD(id, content);
    
 }
 
 async function deleteContent(id:number): Promise<any> {
     
-    return await (await contentRepository.deleteContent(id)).rowCount;
+    return await contentRepository.deleteContent(id);
 }
 
 export const contentService = {

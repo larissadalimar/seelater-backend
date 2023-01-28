@@ -1,6 +1,6 @@
 # See Later API
 
-Back-end for See later, an app for save contents to "see later".
+Back-end for See later, an app for save contents to "see later" (updated using Prisma, an ORM)
 
 ## About
 
@@ -32,10 +32,10 @@ All routes begin with `/contents`
 Body: 
 ```bash
 {
-  "name": "PostgresQL Cheatsheet to see",
+  "title": "PostgresQL Cheatsheet to see",
   "comment": "the best", //opcional
   "link": "https://google.com",
-  "typeShow": "diagramed"
+  "typeId": 8
 }
 ```
 2. GET ALL : `/`
@@ -47,22 +47,22 @@ Response:
   {
     "id": 6,
     "link": "https://goo.com",
-    "typeShow": "diagramed",
-    "statusConsume": "tosee",
+    "typeId": 4,
+    "status": "tosee",
     "createdAt": "2023-01-24T16:31:27.408Z",
     "updatedAt": "2023-01-24T16:31:27.408Z",
     "comment": "the best",
-    "name": "PostgresQL Cheatsheet"
+    "title": "PostgresQL Cheatsheet"
   },
   {
     "id": 5,
     "link": "https://google.com",
-    "typeShow": "diagramed",
-    "statusConsume": "tosee",
+    "typeId": 4,
+    "status": "tosee",
     "createdAt": "2023-01-24T16:31:06.878Z",
     "updatedAt": "2023-01-24T16:31:06.878Z",
     "comment": "the best",
-    "name": "PostgresQL Cheatsheet to see"
+    "title": "PostgresQL Cheatsheet to see"
   }
 ]
 ```
@@ -76,12 +76,12 @@ Response
 {
   "id": 6,
   "link": "https://goo.com",
-  "typeShow": "diagramed",
-  "statusConsume": "tosee",
+  "typeId": "diagramed",
+  "status": "tosee",
   "createdAt": "2023-01-24T16:31:27.408Z",
   "updatedAt": "2023-01-24T16:31:27.408Z",
   "comment": "the best",
-  "name": "PostgresQL Cheatsheet"
+  "title": "PostgresQL Cheatsheet"
 }
 ```
 
@@ -93,22 +93,22 @@ Response
   {
     "id": 6,
     "link": "https://goo.com",
-    "typeShow": "diagramed",
-    "statusConsume": "tosee",
+    "typeId": "diagramed",
+    "status": "tosee",
     "createdAt": "2023-01-24T16:31:27.408Z",
     "updatedAt": "2023-01-24T16:31:27.408Z",
     "comment": "the best",
-    "name": "PostgresQL Cheatsheet"
+    "title": "PostgresQL Cheatsheet"
   },
   {
     "id": 5,
     "link": "https://google.com",
-    "typeShow": "diagramed",
-    "statusConsume": "tosee",
+    "typeId": "diagramed",
+    "status": "tosee",
     "createdAt": "2023-01-24T16:31:06.878Z",
     "updatedAt": "2023-01-24T16:31:06.878Z",
     "comment": "the best",
-    "name": "PostgresQL Cheatsheet to see"
+    "title": "PostgresQL Cheatsheet to see"
   }
 ]
 ```
@@ -120,7 +120,7 @@ Body:
 
 ```bash
 {
-  "name": "PostgresQL Cheatsheet", //opcional
+  "title": "PostgresQL Cheatsheet", //opcional
   "comment": "the best", //opcional
   "status": "seeing" //opcional
 }

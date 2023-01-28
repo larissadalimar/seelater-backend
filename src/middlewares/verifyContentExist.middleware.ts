@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { contentRepository } from "../repositories/content.repository.js";
+import { contentRepository } from "../repositories/contents.repository.js";
 
 export default async function verifyContentExist(req: Request, res: Response, next: NextFunction){
 
@@ -8,10 +8,10 @@ export default async function verifyContentExist(req: Request, res: Response, ne
     try {
 
         const contentExist = await contentRepository.getOne(id);
-        if(!contentExist.rowCount) res.sendStatus(404);
+        if(!contentExist) return res.sendStatus(404);
 
     } catch (error) {
-        res.status(500).send(error.message);
+        return res.status(500).send(error.message);
     }
 
     next();

@@ -1,24 +1,27 @@
 
-export type createContent = {
-    name: string,
+export type Content = {
+    id: number,
+    title: string,
     link: string,
-    typeShow: string
-    comment?: string
+    typeId: number,
+    comment: string,
+    status: string
 };
 
+export type createContent = Omit<Content, 'id' | 'status'>;
+
 export type updateContent = {
-    name?: string
+    title?: string
     comment?: string,
     status?: string
 };
 
-export type Content = {
+export type Type = {
     id: number,
-    name: string,
-    link: string,
-    typeShow: string
-    comment: string,
-    statusConsume: string,
-    createdAt: Date,
-    updatedAt: Date 
+    name: string
+};
+
+export type Label = {
+    id: number,
+    name: string
 };

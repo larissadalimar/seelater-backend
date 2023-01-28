@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { contentService } from "../services/contents.service.js";
-import { createContent, updateContent } from "../utils/protocols";
+import { createContent, updateContent } from "../utils/protocols.js";
 
 
 export async function saveContent(req: Request, res: Response) {
@@ -77,7 +77,7 @@ export async function updateContentController(req: Request, res: Response) {
     
     const updatedContent = await contentService.updateContentService(id, content);
 
-    if(updatedContent) res.sendStatus(200);
+    return res.send(updatedContent);
 
    } catch (error) {
     res.status(500).send(error.message);
