@@ -4,7 +4,7 @@ Back-end for See later, an app for save contents to "see later" (updated using P
 
 ## About
 
-See later started like a POC in TypeScript with the objective to be used like an app to manage your contents saved to see, read or listen later.
+See later started like a POC in TypeScript with the objective to be used like an app to manage your contents saved to see, read or listen later, and now we are updating it with ORM Prisma and making some changes on database. Now we have 3 entities: content, type and label.
 
 ## How to run for development
 
