@@ -13,12 +13,14 @@ model Content {
   id            Int      @id @default(autoincrement())
   link          String   @unique @db.VarChar
   type          Type     @relation(fields: [typeId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
   status        String   @default("tosee") @db.VarChar(20)
   createdAt     DateTime @default(now()) @db.Timestamp(6)
   updatedAt     DateTime @default(now()) @db.Timestamp(6)
   comment       String?
   title         String   @db.VarChar
   typeId        Int
+  userId        Int
 
   Label         Label[]
 
@@ -36,7 +38,21 @@ model Type {
 model Label {
   id            Int      @id @default(autoincrement())
   name          String   @unique @db.VarChar(20)
-
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int 
+  
   Content       Content[]
   @@map("labels")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique @db.VarChar(30)
+  username      String   @unique @db.VarChar(30)
+  password      String   @unique @db.VarChar(50)
+
+  Content       Content[]
+  Label         Label[]
+
+  @@map("users")
 }

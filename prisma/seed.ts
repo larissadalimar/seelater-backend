@@ -2,6 +2,17 @@ import prisma from "../src/database/db.js";
 
 async function main() {
 
+    const user = await prisma.user.findFirst();
+
+    if(!user)
+        await prisma.user.create({
+            data: {
+                username: 'usertest',
+                email: "usertest@email.com",
+                password: "123456"
+            }
+        });
+
     const types = await prisma.type.findMany();
 
     if(!types.length)
@@ -27,8 +38,11 @@ async function main() {
                 },
                 Label: {
                     create: [
-                        { name: 'tech'}
+                        { name: 'tech', userId: 1}
                     ]
+                },
+                user: {
+                    connect: {id: 1}
                 }
             }
         });
@@ -46,8 +60,11 @@ async function main() {
                         {name: 'tech'}
                     ], 
                     create: [
-                        {name: 'prisma'}
+                        {name: 'prisma', userId: 1}
                     ]
+                },
+                user: {
+                    connect: {id: 1}
                 }
             }
         });
@@ -65,6 +82,9 @@ async function main() {
                         {name: 'tech'},
                         {name: 'prisma'}
                     ]
+                },
+                user: {
+                    connect: {id: 1}
                 }
             }
         });
@@ -78,8 +98,11 @@ async function main() {
                 },
                 Label: {
                     create: [
-                        {name: 'english'}
+                        {name: 'english', userId: 1}
                     ]
+                },
+                user: {
+                    connect: {id: 1}
                 }
             }
         });

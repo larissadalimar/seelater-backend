@@ -6,10 +6,11 @@ import { createContent, updateContent } from "../utils/protocols.js";
 export async function saveContent(req: Request, res: Response) {
 
     const content = req.body as createContent;
+    const userId = res.locals.userId;
 
     try {
         
-        await contentService.saveContent(content);
+        await contentService.saveContent(content, userId);
 
         res.sendStatus(201);
 
@@ -39,9 +40,11 @@ export async function getOne(req: Request, res: Response) {
 
 export async function getAll(req: Request, res: Response) {
 
+    const userId = res.locals.userId;
+
    try {
 
-    const contents = await contentService.getAll();
+    const contents = await contentService.getAll(userId);
 
     res.send(contents);
 
@@ -55,10 +58,11 @@ export async function getAll(req: Request, res: Response) {
 export async function getContentsByStatus(req: Request, res: Response) {
 
     const status = req.params.status;
-    
+    const userId = res.locals.userId;
+
     try {
 
-        const contents = await contentService.getContentsByStatus(status);
+        const contents = await contentService.getContentsByStatus(status, userId);
     
         res.send(contents);
     
@@ -71,8 +75,9 @@ export async function getContentsByStatus(req: Request, res: Response) {
 
 export async function updateContentController(req: Request, res: Response) {
     
-   const content = req.body as updateContent;
+    const content = req.body as updateContent;
     const id = Number(req.params.id);
+
    try {
     
     const updatedContent = await contentService.updateContentService(id, content);

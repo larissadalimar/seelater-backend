@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 
 export type Content = {
     id: number,
@@ -9,6 +10,10 @@ export type Content = {
 };
 
 export type createContent = Omit<Content, 'id' | 'status'>;
+
+export type createUser = Omit<User, 'id'>;
+
+export type loginUser = Omit<User, 'id' | 'username'>;
 
 export type updateContent = {
     title?: string
@@ -24,4 +29,12 @@ export type Type = {
 export type Label = {
     id: number,
     name: string
+};
+
+export type createUserForm = {
+    email: string,
+    password: string,
+    confirm_email: string,
+    confirm_password: string,
+    username: string
 };

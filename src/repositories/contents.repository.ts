@@ -1,10 +1,14 @@
 import { createContent, updateContent } from "../utils/protocols";
 import prisma from "../database/db.js";
+import { Content } from "@prisma/client";
 
-async function saveContent(content: createContent) {
+async function saveContent(content: createContent, userId: number): Promise<Content> {
 
     return prisma.content.create({
-        data: content 
+        data: {
+            ...content,
+            userId: userId
+        } 
     });
 }
 
@@ -16,15 +20,22 @@ async function getOne(id: number){
     
 }
 
-async function getAll() {
+async function getAll(userId: number) {
 
-    return prisma.content.findMany();
+    return prisma.content.findMany({
+        where: {
+            userId: userId
+        }
+    });
 }
 
-async function getContentsByStatus(status: string) {
+async function getContentsByStatus(status: string, userId: number) {
     
     return prisma.content.findMany({
-        where: {status: status}
+        where: {
+            status: status,
+            userId: userId
+        }
     });
     
 }

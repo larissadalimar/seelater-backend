@@ -2,9 +2,9 @@ import { contentRepository } from "../repositories/contents.repository.js";
 import { Content, createContent, updateContent } from "../utils/protocols";
 
 
-async function saveContent(content: createContent):Promise<Content> {
+async function saveContent(content: createContent, userId: number):Promise<Content> {
 
-    return await contentRepository.saveContent(content);
+    return await contentRepository.saveContent(content, userId);
 }
 
 
@@ -14,15 +14,15 @@ async function getOne(id: number): Promise<Content> {
 }
 
 
-async function getAll():Promise<Content[]>{
+async function getAll(userId: number):Promise<Content[]>{
 
-    return await contentRepository.getAll();
+    return await contentRepository.getAll(userId);
 }
 
 
-async function getContentsByStatus(status: string):Promise<Content[]> {
+async function getContentsByStatus(status: string, userId: number):Promise<Content[]> {
     
-    return await contentRepository.getContentsByStatus(status);
+    return await contentRepository.getContentsByStatus(status, userId);
 }
 
 
