@@ -1,11 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { nextTick } from "process";
 
 
 export default async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     
-    const token = req.headers.authorization?.split[' '][1];
+    const token = req.headers.authorization?.replace('Bearer ', '');
 
     if(!token) return res.status(401).send("Sem token");
 
@@ -13,8 +12,9 @@ export default async function authMiddleware(req: Request, res: Response, next: 
         
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
+        if(!decoded) return res.sendStatus(401);
         res.locals.userId = decoded;
-        console.log(decoded);
+        res.locals.userId = res.locals.userId.id;
         next(); 
 
     } catch (error) {
